@@ -169,8 +169,19 @@ function phoneAuth() {
 function codeverify() {
   var code=document.getElementById('verificationCode').value;
   coderesult.confirm(code).then(function (result) {
-      alert("Successfully registered");
-      window.location.assign("user/u2.html");
+      var ty=localStorage.getItem('type');
+      alert(ty+ty=="user"+ty=="doctor"+ty=="hospital");
+        if(ty=="doctor"){
+          window.location.assign("doctor/d2.html");
+        }
+        else if(ty=="user")
+        {
+          window.location.assign("user/u2.html");
+        }
+        else if(ty=="hospital")
+        {
+          window.location.assign("hospital/h2.html");
+        }
       var user=result.user;
       console.log(user);
   }).catch(function (error) {
