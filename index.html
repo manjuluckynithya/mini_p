@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HOSPITAL TOCKEN BOOKING</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body class="bg-dark" onload="check();">
+
+<script src="https://www.gstatic.com/firebasejs/6.0.1/firebase.js"></script>
+<script>
+  alert(localStorage.getItem('type'));
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+  apiKey: "AIzaSyAGrtvJk4tVjzcJKdG-H2hwJgF5i-XJAW8",
+  authDomain: "steel-totality-307005.firebaseapp.com",
+  projectId: "steel-totality-307005",
+  storageBucket: "steel-totality-307005.appspot.com",
+  messagingSenderId: "63994305924",
+  appId: "1:63994305924:web:3fbff422994a5d257e11d1",
+  measurementId: "G-47H4WMJ5BN"
+};
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<script>
+  function check(){
+    var user = firebase.auth().currentUser;
+var name, email, photoUrl, uid, emailVerified;
+
+if (user != null) {
+  
+  var email = user.email;
+  
+  zz
+   }
+  else{
+          window.location.assign("index1.html");
+          
+  }
+}
+</script>
+<div onclick="signout();" class="btn btn-primary">Sign-out </div>
+
+</body>
+</html>

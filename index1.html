@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HOSPITAL TOCKEN BOOKING</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body class="bg-dark">
+<!--   TITLE    -->
+<div style="text-align: center;padding:2%;color: lightgoldenrodyellow;text-shadow:3px 5px 6px red;">
+ <h1>Hospital Tocken Booking</h1>
+</div>
+<!--   BODY    -->
+<div class="container-fluid">
+  <diV class="card-columns">
+          <div class="card  p-3 " style="border-radius:5%;">
+            <img src="user.jpg" alt="not loaded" style="width: 100%;height:250px;border-radius:5%;">
+            <div class="card-body">
+              <h3 style="text-align: center;font-style: italic;" > User</h3>
+              
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ulog" onclick="localStorage.setItem('type','user');" > Login with phone number </button>
+              <button type="button" class="btn btn-primary" onclick="GoogleLogin()" > Login <img src="google.png" alt="sdfhg" width="19px"> </button>
+            </div>
+          </div>
+          <!--def-->
+          <!-- The Modal -->
+  <div class="modal fade" id="ulog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Login with phone number</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          
+         
+          <h4>Enter number to create account</h4>
+<form>
+    <input type="text" id="number" placeholder="10 digits">
+    <div id="recaptcha-container"></div>
+    <button type="button" onclick="phoneAuth();">SendCode</button><button type="button" onclick="phoneAuth();">Resend</button>
+    <br>
+    <br>
+     <div class="alert alert-primary w-100" id="us" > Successfully Send OTP </div>
+<h4>Enter Verification code</h4>
+    <input type="text" id="verificationCode" placeholder="Enter verification code">
+    <button type="button" onclick="codeverify();">Verify code</button>
+
+</form>
+
+
+
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+          <div class="card p-3" style="border-radius:5%;">
+            <img src="doctor.jpg" alt="not loaded" style="width: 100%;height:250px;border-radius:5%;">
+            <div class="card-body">
+              <h3 style="text-align: center;font-style: italic;" > Doctor</h3>
+              <button type="button" class="btn btn-primary float-right mt-3 w-100" data-toggle="modal" data-target="#ulog" onclick="localStorage.setItem('type','doctor');"> Login with phone number  </button>
+            </div>
+          </div>
+        
+
+          <div class="card p-3" style="border-radius:5%;">
+            <img src="hospital.jpg" alt="not loaded" style="width: 100%;height:250px;border-radius:5%;">
+            <div class="card-body">
+              <h3 style="text-align: center;font-style: italic;" > Hospital</h3>
+              
+              <button type="button" class="btn btn-primary float-left mt-3" > Creat account </button>
+              <button type="button" class="btn btn-primary float-right mt-3" onclick="localStorage.setItem('type','hospital');" data-toggle="modal" data-target="#ulog" > Login with phone number  </button>
+            </div>
+          </div>
+  </diV>
+
+</div>
+
+<!--   FOTTER    -->
+<div class="container-fluid">
+  
+<div class="card bg-light-50 p-3">
+<div class="card-body">
+  <div class="row">
+    <div class="col">
+  <h1 style="font-style: italic;color: slategray;padding:2%;"> About : </h1>
+  <i>
+    Hospital management system is a computer system that helps manage the information related to health care and aids in the job completion of health care providers effectively. They manage the data related to all departments of healthcare such as, Clinical. Financial.
+  </i>
+</div>
+<div class="col">
+  <h1 style="font-style: italic;color: slategray;padding:2%;"> Contact : </h1>
+  <address>
+    mail : hgdfgshdf@gmail.com<br>
+    phone : xjhcgsdjgsdfggh<br>
+    address :dshgfcgsdfsdfhgsdfgsdgh<br>
+  </address>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- OTP SCRIPT -->
+
+<script src="https://www.gstatic.com/firebasejs/6.0.1/firebase.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  
+  const firebaseConfig = {
+  apiKey: "AIzaSyAGrtvJk4tVjzcJKdG-H2hwJgF5i-XJAW8",
+  authDomain: "steel-totality-307005.firebaseapp.com",
+  projectId: "steel-totality-307005",
+  storageBucket: "steel-totality-307005.appspot.com",
+  messagingSenderId: "63994305924",
+  appId: "1:63994305924:web:3fbff422994a5d257e11d1",
+  measurementId: "G-47H4WMJ5BN"
+};
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
+<script>
+  window.onload=function () {
+render();
+};
+function render() {
+  window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container');
+  recaptchaVerifier.render();
+}
+function phoneAuth() {
+  //get the number
+  var number=document.getElementById('number').value;
+  number="+91"+number;
+  alert(number);
+  //phone number authentication function of firebase
+  //it takes two parameter first one is number,,,second one is recaptcha
+  firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function (confirmationResult) {
+      //s is in lowercase
+      window.confirmationResult=confirmationResult;
+      coderesult=confirmationResult;
+      console.log(coderesult);
+      document.getElementById("us").style.display="block";
+      
+  }).catch(function (error) {
+      alert(error.message);
+  });
+}
+function codeverify() {
+  var code=document.getElementById('verificationCode').value;
+  coderesult.confirm(code).then(function (result) {
+      alert("Successfully registered");
+      window.location.assign("user/u2.html");
+      var user=result.user;
+      console.log(user);
+  }).catch(function (error) {
+      alert(error.message);
+  });
+}
+/**** for mai login*/
+function GoogleLogin() {
+    //first of all create google provider object
+
+    var provider=new firebase.auth.GoogleAuthProvider();
+    //Login with popup window
+    firebase.auth().signInWithPopup(provider).then(function () {
+        //code executes after successful login
+        var ty=localStorage.getItem('type');
+        if(ty=="doctor"){
+          window.location.assign("doctor/d2.html");
+        }
+        else if(ty=="user")
+        {
+          window.location.assign("user/u2.html");
+        }
+        else if(ty=="hospital")
+        {
+          window.location.assign("hospital/h2.html");
+        }
+        alert(ty+ty=="user"+ty=="doctor"+ty=="hospital")
+    }).catch(function (error) {
+        var errorMessage=error.message;
+        alert(errorMessage);
+    });
+}
+</script>
+</body>
+</html>
