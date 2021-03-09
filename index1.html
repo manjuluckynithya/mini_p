@@ -185,6 +185,7 @@ function GoogleLogin() {
     firebase.auth().signInWithPopup(provider).then(function () {
         //code executes after successful login
         var ty=localStorage.getItem('type');
+      alert(ty+ty=="user"+ty=="doctor"+ty=="hospital");
         if(ty=="doctor"){
           window.location.assign("doctor/d2.html");
         }
@@ -196,7 +197,7 @@ function GoogleLogin() {
         {
           window.location.assign("hospital/h2.html");
         }
-        alert(ty+ty=="user"+ty=="doctor"+ty=="hospital")
+        
     }).catch(function (error) {
         var errorMessage=error.message;
         alert(errorMessage);
